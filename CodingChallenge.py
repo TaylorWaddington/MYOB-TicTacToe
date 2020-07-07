@@ -6,82 +6,108 @@
 #introduce game by printing "Welcome to Tic Tac Toe!"
 print("Welcome to Tic Tac Toe!")
 
-
-
+player = "1"
 
 #part 2:
 #display the current game board by adding a dictionary 
 tictac_board = {
-    "1" : "." , "2" : "." , "3" : ".",
-    "4" : "." , "5" : "." , "6" : ".",
-    "7" : "." , "8" : "." , "9" : "."
+    "1": "." , "2": "." , "3": "." ,
+    "4": "." , "5": "." , "6": "." ,
+    "7": "." , "8": "." , "9": "."
 }
+
+board_keys = []
+for key in tictac_board:
+    board_keys.append(key)
 
 #create a funtion so the board can be displayed and is able to be updated after 
 #a move is made
 def printGrid(grid):
-    print(board["1"]) + (board["2"]) + (board["3"]) 
-    print(board["4"]) + (board["5"]) + (board["6"])
-    print(board["7"]) + (board["8"]) + (board["9"])  
+    print(grid["1"] + grid["2"] + grid["3"]) 
+    print(grid["4"] + grid["5"] + grid["6"])
+    print(grid["7"] + grid["8"] + grid["9"])  
 
 #part 3:
 #for loop will increment based on success of user choice 
+move = "X"
 count = 0 
+
+print ("here's the current board:")
+printGrid(tictac_board)
+
 for turn in range(9):
 
-    #print grid 
-    print ("here's the current board:")
+    print ("Player "+player+" enter a number 1 to 9 to place your X or enter 'q' to give up: ")
 
-    printGrid(grid)
-
-    print ("Player 1 enter a number 1 to 9 to place your X or enter 'q' to give up: 1,1")
-
-    user_input = int(input("Where would you like to make your move? "))
+    user_input = input("Where would you like to make your move? ")
+    
     #user input validation - if their move is accetable 
-    #print ("Oh no, a piece is already at this place! Try again..." ) 
+    if tictac_board[user_input] == ".":
+        tictac_board[user_input] = move
+        count + 1 
+        print("Move accepted, here's the current board: ")
+        printGrid(tictac_board) 
+    else:
+        print("Oh no, a piece is already at this place! Try again..." ) 
+        continue
+
+    #validation on winning user moves across
+    if count <= 5:
+        if tictac_board["1"] == tictac_board["2"] == tictac_board["3"] != ".": 
+            printGrid(tictac_board)
+            print("Move accepted, well done you've won the game! ")                           
+            break
+        elif tictac_board["4"] == tictac_board["5"] == tictac_board["6"] != ".": 
+            printGrid(tictac_board)
+            print("Move accepted, well done you've won the game! ")                           
+            break
+        elif tictac_board["7"] == tictac_board["8"] == tictac_board["9"] != ".": 
+            printGrid(tictac_board)
+            print("Move accepted, well done you've won the game! ")                           
+            break   
+    #validation on winning user moves down  
+        elif tictac_board["1"] == tictac_board["4"] == tictac_board["7"] != ".": 
+            printGrid(tictac_board)
+            print("Move accepted, well done you've won the game! ")                           
+            break
+        elif tictac_board["2"] == tictac_board["5"] == tictac_board["8"] != ".": 
+            printGrid(tictac_board)
+            print("Move accepted, well done you've won the game! ")                           
+            break    
+        elif tictac_board["3"] == tictac_board["6"] == tictac_board["9"] != ".": 
+            printGrid(tictac_board)
+            print("Move accepted, well done you've won the game! ")                           
+            break
+    #validation on winning user moves diagonal  
+        elif tictac_board["1"] == tictac_board["5"] == tictac_board["9"] != ".": 
+            printGrid(tictac_board)
+            print("Move accepted, well done you've won the game! ")                           
+            break
+        elif tictac_board["3"] == tictac_board["5"] == tictac_board["7"] != ".": 
+            printGrid(tictac_board)
+            print("Move accepted, well done you've won the game! ")                           
+            break   
+
+    if count == 9: 
+        print("draw")
+                
+    else:
+        print()
+
+
+        #changes between players 
+    if move == "X":
+        move = "O"
+        player = "2"
+    else:
+        move = "X"
+        player = "1"
+
 
 
     
-    print("Move accepted, here's the current board: ")
-
-    printGrid(grid)
-
-    print ("Player 2 enter a number 1 to 9 to place your X or enter 'q' to give up: 1,1")
-
-
-
-    user_input = int(input("Where would you like to make your move? "))
-    #user input validation - if their move is accetable 
-    #print ("Oh no, a piece is already at this place! Try again..." ) 
-
-    count +1
-
-
-
-
-
-
-    #display instructions to player 
-    #create a main function that includes a for if and else loop that takes an input and checks 
-    #the move is valid. if it isnt let the player know and restart the loop. 
-
-
-#examples code 
-"""
-def game():
     
-    turn = 'X'
-    count = 0
-    
-    for i in range(10):
-            printBoard(theBoard)
-            print("It's your turn," + turn + ".Move to which place?")
 
-            move = input()        
 
-            if theBoard[move] == ' ':
-                theBoard[move] = turn
-                count += 1
-            else:
-                print("That place is already filled.\nMove to which place?")
-                continue
+
+
